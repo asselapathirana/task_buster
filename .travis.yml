@@ -1,5 +1,5 @@
 env: 
-  - DATABASE_NAME=task_buster DATABASE_USER=postgres NOSSL=1
+  - DATABASE_NAME=task_buster DATABASE_USER=postgres NOSSL=1 DJANGO_SETTINGS_MODULE="taskbuster.settings.testing"
 language: python
 python:
   - "3.4"
