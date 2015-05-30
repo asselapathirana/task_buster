@@ -1,0 +1,19 @@
+env: 
+  - DATABASE_NAME=task_buster DATABASE_USER=postgres NOSSL=1
+language: python
+python:
+  - "3.4"
+# command to install dependencies
+install: "pip install -r ./requirements/testing.txt"
+#before teste
+before_script:
+    - psql -c 'create database task_buster;' -U postgres
+    - python manage.py syncdb --noinput
+    - python manage.py migrate --noinput
+    - python manage.py runserver 0.0.0.0:8000 &
+# command to run tests
+script: python manage.py test functional_tests
+before_install:
+    - "export DISPLAY=:99.0"
+    - "sh -e /etc/init.d/xvfb start"
+    - sleep 3 # give xvfb some time to start
