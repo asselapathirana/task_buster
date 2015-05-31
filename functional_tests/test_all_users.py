@@ -2,6 +2,8 @@
 from selenium import webdriver
 from django.core.urlresolvers import reverse
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.conf import settings
+from django.utils.translation import activate
 from unittest import skip
 import re
 
@@ -49,7 +51,16 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertIn("favicon.ico",self.browser.title)
         self.assertNotIn("Not Found", self.browser.title)         
 
-
+    def test_internationalization(self):
+        # 
+        WELCOME_MESSAGE_TESTING=(('en',"Welcome to TaskBuster!"),('nl', "Welkom bij TaskBuster!"))
+        for i,l in enumerate(WELCOME_MESSAGE_TESTING):
+            self.assertEqual(l[0],settings.LANGUAGES[i][0])
+        for lang, h1_text in WELCOME_MESSAGE_TESTING:
+            activate(lang)
+            self.browser.get(self.get_full_url("home"))
+            h1 = self.browser.find_element_by_tag_name("h1")
+            self.assertEqual(h1.text, h1_text)
  
   
 # DO not use direct calling to run these. The main below is only for exploratory coding.   

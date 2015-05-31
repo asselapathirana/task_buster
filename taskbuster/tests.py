@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.translation import activate
 
+
 class TestHomePage(TestCase):
     def _activate():
         activate(settings.LANGUAGES[0][0])
@@ -21,7 +22,9 @@ class TestHomePage(TestCase):
             activate(l[0])        
             response = self.client.get(reverse("home"))
             self.assertTemplateUsed(response, "base.html")
-        
+            
+  
+            
 class TestSettingsForTranslations(TestCase):
     
     def test_settings_has_required_setings_for_translations(self):
@@ -38,3 +41,4 @@ class TestSettingsForTranslations(TestCase):
         self.assertIn(settings.LANGUAGE_CODE,language_codes)
             
         
+   
