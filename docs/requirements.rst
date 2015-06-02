@@ -7,6 +7,7 @@ The requirements necessary to use this Django Project Boilerplate are:
 - **virtualenv and virtualenvwrapper**
 - **Firefox** (to use Selenium's Webdriver in functional Tests)
 - **GNU gettext** (to use Internationalization)
+- **travis** (for encrypting fixtures for travis CI)
  
 If you don't have the first two requirements, you may find this 
 post useful: |python_install|.
@@ -26,6 +27,15 @@ And if you don't have GNU gettext, check this |taskbuster_section|.
 .. |taskbuster_section| raw:: html
  
     <a href="http://marinamele.com/taskbuster-django-tutorial/internationalization-localization-languages-time-zones" target="_blank">TaskBuster tutorial section</a>
+
+.. |travis_section| raw:: html
+
+If you don't have travis command install it as follows (in Debian systems)::
+    $ sudo apt-get install ruby-dev 
+    $ sudo gem install travis
+    
+Now you can use ./make_fixtures script to create an encrypted file with all the fixtures needed to run tests in travis. 
+
  
  
 **Ready!?** Continue to the :doc:`quick_start`!

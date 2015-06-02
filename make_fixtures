@@ -1,0 +1,5 @@
+#!/bin/bash
+tar cvf fixtures.tar taskbuster/fixtures
+travis login
+travis encrypt-file fixtures.tar 
+
