@@ -5,3 +5,4 @@ __pycache__
 .coverage
 htmlcov/
 taskbuster/fixtures/
+fixtures.tar

@@ -38,9 +38,12 @@ class TestGoogleLogin(StaticLiveServerTestCase):
         import json
         with open("taskbuster/fixtures/google_user.json") as f:
             credentials = json.loads(f.read())
+        print(1)
         for key, value in credentials.items():
             self.get_element_by_id(key).send_keys(value)
+        print(2)
         for btn in ["signIn", "submit_approve_access"]:
+            print(btn)
             self.get_button_by_id(btn).click()
         return    
 
@@ -55,9 +58,10 @@ class TestGoogleLogin(StaticLiveServerTestCase):
         
         google_login.click()
         self.user_login()
-        return
         with self.assertRaises(TimeoutException):
             self.get_element_by_id("google_login")
         google_logout = self.get_element_by_id("logout")
         google_logout.click()
+        confirm= self.browser.find_element_by_xpath("//body/form/button") #fix me later: too non-specific
+        confirm.click()
         google_login = self.get_element_by_id("google_login")
