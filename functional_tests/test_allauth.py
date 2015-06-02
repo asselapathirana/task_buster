@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+import os
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -15,7 +18,21 @@ class TestGoogleLogin(StaticLiveServerTestCase):
     fixtures = ['allauth_fixture']
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        username=os.getenv("SAUCE_USERNAME","NONE")
+        if (username!="NONE"): # travis-ci with saucelabs
+            accesskey=os.getenv("SAUCE_ACCESS_KEY","NONE")
+            sauce_url = "http://"+username+":"+accesskey+"@ondemand.saucelabs.com:80/wd/hub"
+            
+            desired_capabilities = {
+                'platform': "Mac OS X 10.9", # 
+                'browserName': "chrome",
+                'version': "31",       
+            }
+            self.browser= webdriver.Remote(desired_capabilities=desired_capabilities,
+                                      command_executor=sauce_url)            
+        else:
+            self.browser = webdriver.Firefox()
+            
         self.browser.implicitly_wait(3)
         self.browser.wait = WebDriverWait(self.browser, 10)
         activate('en')
