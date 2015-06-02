@@ -26,7 +26,8 @@ class TestGoogleLogin(StaticLiveServerTestCase):
             desired_capabilities = {
                 'platform': "Mac OS X 10.9", # 
                 'browserName': "chrome",
-                'version': "31",       
+                'version': "31",  
+                'tunnel-identifier': os.environ['TRAVIS_JOB_NUMBER'],
             }
             self.browser= webdriver.Remote(desired_capabilities=desired_capabilities,
                                       command_executor=sauce_url)            
